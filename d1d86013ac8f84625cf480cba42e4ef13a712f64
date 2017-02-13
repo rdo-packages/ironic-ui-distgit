@@ -22,6 +22,30 @@
       "revId": "d1d86013ac8f84625cf480cba42e4ef13a712f64",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac7a964_59ca67a2",
+        "filename": "openstack-ironic-ui.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-02-13T15:47:31Z",
+      "side": 1,
+      "message": "Yes i should have mentioned it, :(",
+      "parentUuid": "7ac7a964_59f3470a",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "d1d86013ac8f84625cf480cba42e4ef13a712f64",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
