@@ -108,4 +108,4 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python2} man
 
 
 %changelog
-
+# This is just a test
