@@ -46,7 +46,7 @@ manage their bare metal nodes, ports and drivers.
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
 BuildRequires: python-sphinx
-BuildRequires: python-oslo-sphinx
+BuildRequires: python-openstackdocstheme
 
 %description doc
 Ironic UI is an OpenStack Horizon plugin that allows users to view and
