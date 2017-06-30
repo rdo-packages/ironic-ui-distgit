@@ -109,3 +109,4 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python2} man
 
 %changelog
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/ironic-ui/commit/?id=6a1f2e2f1b63c5c7edb42a7427d8ac6f395b8897
