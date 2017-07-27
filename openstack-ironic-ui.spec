@@ -60,6 +60,7 @@ This package contains the documentation.
 rm -rf %{pypi_name}.egg-info
 
 # generate html docs
+export DJANGO_SETTINGS_MODULE=ironic_ui.test.settings
 sphinx-build doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
