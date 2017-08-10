@@ -21,10 +21,7 @@ BuildRequires:  openstack-dashboard
 BuildRequires:  python-hacking
 BuildRequires:  python-django-horizon
 BuildRequires:  python-django-nose
-BuildRequires:  python-django-openstack-auth
 BuildRequires:  python-ironicclient
-BuildRequires:  python-mock
-BuildRequires:  python-mox3
 BuildRequires:  python-subunit
 BuildRequires:  python-testrepository
 BuildRequires:  python-testscenarios
@@ -33,10 +30,8 @@ BuildRequires:  python-testtools
 Requires: openstack-dashboard
 Requires: python-babel
 Requires: python-django
-Requires: python-django-compressor
 Requires: python-django-horizon
-Requires: python-django-openstack-auth
-Requires: python-ironicclient
+Requires: python-ironicclient >= 1.14.0
 Requires: python-pbr
 
 %description
