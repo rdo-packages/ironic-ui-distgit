@@ -43,6 +43,7 @@ manage their bare metal nodes, ports and drivers.
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
 BuildRequires: python-sphinx
 BuildRequires: python-openstackdocstheme
+BuildRequires: openstack-macros
 
 %description doc
 Ironic UI is an OpenStack Horizon plugin that allows users to view and
@@ -62,7 +63,7 @@ sphinx-build doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
-rm test-requirements.txt
+%py_req_cleanup
 
 %build
 %{__python2} setup.py build
