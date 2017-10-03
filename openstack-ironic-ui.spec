@@ -3,6 +3,10 @@
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
+%global common_desc \
+Ironic UI is an OpenStack Horizon plugin that allows users to view and \
+manage their bare metal nodes, ports and drivers.
+
 Name:           openstack-%{pypi_name}
 Version:        XXX
 Release:        XXX
@@ -36,8 +40,7 @@ Requires: python-ironicclient >= 1.14.0
 Requires: python-pbr
 
 %description
-Ironic UI is an OpenStack Horizon plugin that allows users to view and
-manage their bare metal nodes, ports and drivers.
+%{common_desc}
 
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
@@ -46,8 +49,7 @@ BuildRequires: python-openstackdocstheme
 BuildRequires: openstack-macros
 
 %description doc
-Ironic UI is an OpenStack Horizon plugin that allows users to view and
-manage their bare metal nodes, ports and drivers.
+%{common_desc}
 
 This package contains the documentation.
 
