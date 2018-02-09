@@ -4,7 +4,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:           openstack-%{pypi_name}
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        OpenStack Ironic Dashboard for Horizon
 
@@ -108,6 +108,9 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python2} man
 
 
 %changelog
+* Fri Feb 09 2018 RDO <dev@lists.rdoproject.org> 2.2.2-1
+- Update to 2.2.2
+
 * Wed May 31 2017 rdo-trunk <javier.pena@redhat.com> 2.2.1-1
 - Update to 2.2.1
 
