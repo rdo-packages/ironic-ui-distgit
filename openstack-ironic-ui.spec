@@ -17,35 +17,35 @@ URL:            http://docs.openstack.org/developer/ironic-ui
 Source0:        http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python2-devel
-BuildRequires:  python-pbr
+BuildRequires:  python2-pbr
 BuildRequires:  gettext
 BuildRequires:  git
 # For tests only
 BuildRequires:  openstack-dashboard
-BuildRequires:  python-hacking
-BuildRequires:  python-django-horizon
-BuildRequires:  python-django-nose
-BuildRequires:  python-ironicclient
-BuildRequires:  python-mox3
-BuildRequires:  python-subunit
-BuildRequires:  python-testrepository
-BuildRequires:  python-testscenarios
-BuildRequires:  python-testtools
+BuildRequires:  python2-hacking
+BuildRequires:  python2-django-horizon
+BuildRequires:  python2-django-nose
+BuildRequires:  python2-ironicclient
+BuildRequires:  python2-mox3
+BuildRequires:  python2-subunit
+BuildRequires:  python2-testrepository
+BuildRequires:  python2-testscenarios
+BuildRequires:  python2-testtools
 
 Requires: openstack-dashboard
-Requires: python-babel
-Requires: python-django
-Requires: python-django-horizon
-Requires: python-ironicclient >= 1.14.0
-Requires: python-pbr
+Requires: python2-babel
+Requires: python2-django
+Requires: python2-django-horizon
+Requires: python2-ironicclient >= 2.2.0
+Requires: python2-pbr
 
 %description
 %{common_desc}
 
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
-BuildRequires: python-sphinx
-BuildRequires: python-openstackdocstheme
+BuildRequires: python2-sphinx
+BuildRequires: python2-openstackdocstheme
 BuildRequires: openstack-macros
 
 %description doc
