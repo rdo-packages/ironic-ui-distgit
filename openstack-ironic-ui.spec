@@ -8,7 +8,7 @@ Ironic UI is an OpenStack Horizon plugin that allows users to view and \
 manage their bare metal nodes, ports and drivers.
 
 Name:           openstack-%{pypi_name}
-Version:        3.1.1
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        OpenStack Ironic Dashboard for Horizon
 
@@ -109,6 +109,9 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python2} man
 
 
 %changelog
+* Wed Apr 04 2018 RDO <dev@lists.rdoproject.org> 3.1.2-1
+- Update to 3.1.2
+
 * Thu Feb 22 2018 RDO <dev@lists.rdoproject.org> 3.1.1-1
 - Update to 3.1.1
 
