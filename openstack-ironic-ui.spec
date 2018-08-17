@@ -36,7 +36,7 @@ Requires: openstack-dashboard
 Requires: python2-babel
 Requires: python2-django
 Requires: python-django-horizon
-Requires: python2-ironicclient >= 2.2.0
+Requires: python2-ironicclient >= 2.3.0
 Requires: python2-pbr
 
 %description
