@@ -1,3 +1,14 @@
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
+%endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
 %global pypi_name ironic-ui
 %global mod_name ironic_ui
 
@@ -16,36 +27,35 @@ License:        ASL 2.0
 URL:            http://docs.openstack.org/developer/ironic-ui
 Source0:        http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  python2-devel
-BuildRequires:  python2-pbr
+BuildRequires:  python%{pyver}-devel
+BuildRequires:  python%{pyver}-pbr
 BuildRequires:  gettext
 BuildRequires:  git
 # For tests only
 BuildRequires:  openstack-dashboard
-BuildRequires:  python2-hacking
-BuildRequires:  python-django-horizon
-BuildRequires:  python2-django-nose
-BuildRequires:  python2-ironicclient
-BuildRequires:  python2-mox3
-BuildRequires:  python2-subunit
-BuildRequires:  python2-testrepository
-BuildRequires:  python2-testscenarios
-BuildRequires:  python2-testtools
+BuildRequires:  python%{pyver}-hacking
+BuildRequires:  python%{pyver}-django-horizon
+BuildRequires:  python%{pyver}-ironicclient
+BuildRequires:  python%{pyver}-mox3
+BuildRequires:  python%{pyver}-subunit
+BuildRequires:  python%{pyver}-testrepository
+BuildRequires:  python%{pyver}-testscenarios
+BuildRequires:  python%{pyver}-testtools
 
 Requires: openstack-dashboard
-Requires: python2-babel
-Requires: python2-django
-Requires: python-django-horizon
-Requires: python2-ironicclient >= 2.3.0
-Requires: python2-pbr
+Requires: python%{pyver}-babel
+Requires: python%{pyver}-django
+Requires: python%{pyver}-django-horizon
+Requires: python%{pyver}-ironicclient >= 2.3.0
+Requires: python%{pyver}-pbr
 
 %description
 %{common_desc}
 
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
-BuildRequires: python2-sphinx
-BuildRequires: python2-openstackdocstheme
+BuildRequires: python%{pyver}-sphinx
+BuildRequires: python%{pyver}-openstackdocstheme
 BuildRequires: openstack-macros
 
 %description doc
@@ -61,7 +71,7 @@ rm -rf %{pypi_name}.egg-info
 %py_req_cleanup
 
 %build
-%{__python2} setup.py build
+%{pyver_build}
 # Generate i18n files
 pushd build/lib/%{mod_name}
 django-admin compilemessages
@@ -70,13 +80,13 @@ popd
 # generate html docs
 export DJANGO_SETTINGS_MODULE=ironic_ui.test.settings
 export PYTHONPATH=$PYTHONPATH:/usr/share/openstack-dashboard/
-sphinx-build doc/source html
-# remove the sphinx-build leftovers
+sphinx-build-%{pyver} doc/source html
+# remove the sphinx-build-%{pyver} leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%{pyver_install}
 
 # Move config to horizon
 mkdir -p %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled
@@ -85,21 +95,21 @@ mv %{mod_name}/enabled/_2200_ironic.py %{buildroot}%{_sysconfdir}/openstack-dash
 ln -s %{_sysconfdir}/openstack-dashboard/enabled/_2200_ironic.py %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_2200_ironic.py
 
 # Remove .po and .pot (they are not required)
-rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
-rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*pot
+rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
+rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*pot
 
 # Find language files
 %find_lang django --all-name
 
 
 %check
-PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python2} manage.py test ironic_ui
+PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{pyver_bin} manage.py test ironic_ui
 
 
 %files -f django.lang
 %license LICENSE
-%{python2_sitelib}/%{mod_name}
-%{python2_sitelib}/%{mod_name}-*-py?.?.egg-info
+%{pyver_sitelib}/%{mod_name}
+%{pyver_sitelib}/%{mod_name}-*-py?.?.egg-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_2200_ironic.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_2200_ironic.py*
 
