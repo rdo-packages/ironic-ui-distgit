@@ -13,6 +13,7 @@
 %global mod_name ironic_ui
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+%global with_doc 0
 
 %global common_desc \
 Ironic UI is an OpenStack Horizon plugin that allows users to view and \
@@ -52,6 +53,7 @@ Requires: python%{pyver}-pbr
 %description
 %{common_desc}
 
+%if 0%{?with_doc}
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
 BuildRequires: python%{pyver}-sphinx
@@ -62,6 +64,7 @@ BuildRequires: openstack-macros
 %{common_desc}
 
 This package contains the documentation.
+%endif
 
 %prep
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
@@ -79,11 +82,13 @@ popd
 
 # generate html docs
 export DJANGO_SETTINGS_MODULE=ironic_ui.test.settings
+
+%if 0%{?with_doc}
 export PYTHONPATH=$PYTHONPATH:/usr/share/openstack-dashboard/
 sphinx-build-%{pyver} doc/source html
 # remove the sphinx-build-%{pyver} leftovers
 rm -rf html/.{doctrees,buildinfo}
-
+%endif
 
 %install
 %{pyver_install}
@@ -113,10 +118,11 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{pyver_bin} man
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_2200_ironic.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_2200_ironic.py*
 
+%if 0%{?with_doc}
 %files doc
 %license LICENSE
 %doc html README.rst
-
+%endif
 
 %changelog
 
