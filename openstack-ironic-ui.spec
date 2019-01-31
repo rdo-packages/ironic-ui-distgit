@@ -38,6 +38,7 @@ BuildRequires:  openstack-dashboard
 BuildRequires:  python%{pyver}-hacking
 BuildRequires:  python%{pyver}-django-horizon
 BuildRequires:  python%{pyver}-ironicclient
+BuildRequires:  python%{pyver}-mock
 BuildRequires:  python%{pyver}-mox3
 BuildRequires:  python%{pyver}-subunit
 BuildRequires:  python%{pyver}-testrepository
