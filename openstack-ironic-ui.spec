@@ -109,7 +109,7 @@ rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*pot
 
 
 %check
-PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{pyver_bin} manage.py test ironic_ui
+PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{pyver_bin} manage.py test ironic_ui --exclude-tag integration
 
 
 %files -f django.lang
