@@ -109,6 +109,7 @@ rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*pot
 
 
 %check
+rm -rf ironic_ui/test/integration
 PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{pyver_bin} manage.py test ironic_ui
 
 
