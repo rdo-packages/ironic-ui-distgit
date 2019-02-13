@@ -1,0 +1,8 @@
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Workflow+1: dtantsur <divius.inside@gmail.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Wed, 13 Feb 2019 17:24:49 +0000
+Reviewed-on: https://review.rdoproject.org/r/18824
+Project: openstack/ironic-ui-distgit
+Branch: refs/heads/rpm-master
