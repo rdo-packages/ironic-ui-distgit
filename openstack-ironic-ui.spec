@@ -40,6 +40,7 @@ BuildRequires:  python%{pyver}-django-horizon
 BuildRequires:  python%{pyver}-ironicclient
 BuildRequires:  python%{pyver}-mock
 BuildRequires:  python%{pyver}-mox3
+BuildRequires:  python%{pyver}-pytest
 BuildRequires:  python%{pyver}-subunit
 BuildRequires:  python%{pyver}-testrepository
 BuildRequires:  python%{pyver}-testscenarios
