@@ -106,7 +106,7 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python3} man
 %files -f django.lang
 %license LICENSE
 %{python3_sitelib}/%{mod_name}
-%{python3_sitelib}/%{mod_name}-*-py?.?.egg-info
+%{python3_sitelib}/%{mod_name}-*-py%{python3_version}.egg-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_2200_ironic.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_2200_ironic.py*
 
