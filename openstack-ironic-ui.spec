@@ -1,3 +1,5 @@
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %global pypi_name ironic-ui
 %global mod_name ironic_ui
 
@@ -10,13 +12,23 @@ manage their bare metal nodes, ports and drivers.
 
 Name:           openstack-%{pypi_name}
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Ironic Dashboard for Horizon
 
 License:        ASL 2.0
 URL:            http://docs.openstack.org/developer/ironic-ui
 Source0:        http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 BuildArch:      noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-pbr
 BuildRequires:  gettext
@@ -58,6 +70,10 @@ This package contains the documentation.
 %endif
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
@@ -117,6 +133,9 @@ PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python3} man
 %endif
 
 %changelog
+* Tue Oct 20 2020 Joel Capitao <jcapitao@redhat.com> 4.2.0-2
+- Enable sources tarball validation using GPG signature.
+
 * Thu Oct 01 2020 RDO <dev@lists.rdoproject.org> 4.2.0-1
 - Update to 4.2.0
 
