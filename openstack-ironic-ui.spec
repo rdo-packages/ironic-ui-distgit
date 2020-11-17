@@ -32,7 +32,7 @@ BuildRequires:  /usr/bin/gpgv2
 BuildRequires:  python3-devel
 BuildRequires:  python3-pbr
 BuildRequires:  gettext
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  openstack-macros
 # For tests only
 BuildRequires:  openstack-dashboard
