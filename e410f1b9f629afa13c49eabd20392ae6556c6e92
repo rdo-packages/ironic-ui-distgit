@@ -46,6 +46,30 @@
       "revId": "e410f1b9f629afa13c49eabd20392ae6556c6e92",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb307ad_19ef0dd6",
+        "filename": "openstack-ironic-ui.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-05-21T13:25:21Z",
+      "side": 1,
+      "message": "Fair enough, let\u0027s do it then.",
+      "parentUuid": "7fb2527d_5fe5f5b1",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 28
+      },
+      "revId": "e410f1b9f629afa13c49eabd20392ae6556c6e92",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
