@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be75c439_0e7cbc84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 757
+      },
+      "writtenOn": "2022-03-22T10:50:28Z",
+      "side": 1,
+      "message": "waiting for python-django-horizon-21.0.0-1 to be build",
+      "revId": "147f6f741aa443e32b403fdddb01b8d191b2b34c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
