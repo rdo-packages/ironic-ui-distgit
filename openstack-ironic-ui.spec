@@ -40,7 +40,6 @@ BuildRequires:  python3-hacking
 BuildRequires:  python3-django-horizon
 BuildRequires:  python3-ironicclient
 BuildRequires:  python3-mock
-BuildRequires:  python3-mox3
 BuildRequires:  python3-pytest
 BuildRequires:  python3-subunit
 BuildRequires:  python3-testrepository
