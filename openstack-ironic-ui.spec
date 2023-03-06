@@ -51,7 +51,7 @@ Requires: python3-babel
 Requires: python3-django
 Requires: python3-django-horizon
 Requires: python3-ironicclient >= 2.3.0
-Requires: python3-pbr
+Requires: python3-pbr >= 2.0.0
 
 %description
 %{common_desc}
