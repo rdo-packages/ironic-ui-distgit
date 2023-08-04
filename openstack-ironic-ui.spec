@@ -4,6 +4,12 @@
 %global mod_name ironic_ui
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order nodeenv xvfbwrapper
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 %global with_doc 1
 
 %global common_desc \
@@ -15,7 +21,7 @@ Version:        XXX
 Release:        XXX
 Summary:        OpenStack Ironic Dashboard for Horizon
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://docs.openstack.org/developer/ironic-ui
 Source0:        http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -30,38 +36,18 @@ BuildArch:      noarch
 BuildRequires:  /usr/bin/gpgv2
 %endif
 BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  openstack-macros
-# For tests only
 BuildRequires:  openstack-dashboard
-BuildRequires:  python3-hacking
-BuildRequires:  python3-django-horizon
-BuildRequires:  python3-ironicclient
-BuildRequires:  python3-mock
-BuildRequires:  python3-pytest
-BuildRequires:  python3-subunit
-BuildRequires:  python3-testrepository
-BuildRequires:  python3-testscenarios
-BuildRequires:  python3-testtools
-
 Requires: openstack-dashboard
-Requires: python3-babel
-Requires: python3-django
-Requires: python3-django-horizon
-Requires: python3-ironicclient >= 2.3.0
-Requires: python3-pbr >= 2.0.0
-
 %description
 %{common_desc}
 
 %if 0%{?with_doc}
 %package doc
 Summary:    OpenStack Ironic Dashboard for Horizon - documentation
-BuildRequires: python3-sphinx
-BuildRequires: python3-openstackdocstheme
-
 %description doc
 %{common_desc}
 
@@ -74,30 +60,52 @@ This package contains the documentation.
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{pypi_name}-%{upstream_version} -S git
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
-%py_req_cleanup
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+# Disable warnint-is-error in doc build
+sed -i '/sphinx-build/ s/-W//' tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
-# Generate i18n files
-pushd build/lib/%{mod_name}
-django-admin compilemessages
-popd
+export PYTHONPATH=.:%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:/usr/share/openstack-dashboard/
+%pyproject_wheel
 
 # generate html docs
 export DJANGO_SETTINGS_MODULE=ironic_ui.test.settings
 
 %if 0%{?with_doc}
-export PYTHONPATH=$PYTHONPATH:/usr/share/openstack-dashboard/
-sphinx-build doc/source html
+%tox -e docs
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %install
-%{py3_install}
+%pyproject_install
+
+# Generate i18n files
+pushd %{buildroot}/%{python3_sitelib}/%{mod_name}
+django-admin compilemessages
+popd
 
 # Move config to horizon
 mkdir -p %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled
@@ -115,13 +123,13 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 
 %check
 rm -rf ironic_ui/test/integration
-PYTHONPATH=/usr/share/openstack-dashboard NOSE_WITH_OPENSTACK=1 %{__python3} manage.py test ironic_ui
-
+export PYTHONPATH=.:%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:/usr/share/openstack-dashboard/
+%tox -e %{default_toxenv}
 
 %files -f django.lang
 %license LICENSE
 %{python3_sitelib}/%{mod_name}
-%{python3_sitelib}/%{mod_name}-*-py%{python3_version}.egg-info
+%{python3_sitelib}/%{mod_name}-*.dist-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_2200_ironic.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_2200_ironic.py*
 
