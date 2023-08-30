@@ -68,6 +68,7 @@ sed -i /^minversion.*/d tox.ini
 sed -i /^requires.*virtualenv.*/d tox.ini
 # Disable warnint-is-error in doc build
 sed -i '/sphinx-build/ s/-W//' tox.ini
+sed -i 's/\(.*pycodestyle>=.*\),\(.*\)/\1/' test-requirements.txt
 
 # Exclude some bad-known BRs
 for pkg in %{excluded_brs}; do
