@@ -1,0 +1,8 @@
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Fri, 09 Feb 2024 12:19:02 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/ironic-ui-distgit/+/51616
+Project: openstack/ironic-ui-distgit
+Branch: refs/heads/yoga-rdo
