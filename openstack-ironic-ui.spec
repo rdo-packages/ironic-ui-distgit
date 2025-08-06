@@ -144,3 +144,4 @@ export PYTHONPATH=.:%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_siteli
 
 %changelog
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/ironic-ui/commit/712a3d4a2d4ebed3c0c08509314fe09c0449fadc
